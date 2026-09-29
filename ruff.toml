@@ -1,0 +1,17 @@
+# Lint and format settings for the Python files:  ruff check .  and  ruff format .
+line-length = 110
+target-version = "py310"
+
+[lint]
+select = ["E", "W", "F", "I", "B", "UP", "SIM", "C4", "PIE", "RET", "PL"]
+ignore = [
+    "UP031",    # printf-style formatting is kept
+    "PLR2004",  # numeric constants in comparisons
+    "PLR0912", "PLR0913", "PLR0915",  # size limits on functions
+    "PLW0603",  # the figure scripts set module globals
+    "E731",     # short lambdas
+    "SIM108",   # if-else blocks are not forced into one line
+]
+
+[lint.isort]
+known-first-party = ["check_cert_core", "common", "relax", "relaxation"]

@@ -1,0 +1,29 @@
+# LEAN_NUM_THREADS=30 .lake/build/bin/checkcert T CERT   (2026-09-28, from lean/)
+== checkcert 9/5 ../data/controls/cert_trunc.txt
+checkcert: T = 9/5, file ../data/controls/cert_trunc.txt, 82478949 bytes
+checkCert 9/5 <file> = false
+leaves (letters L in the file): 20619733
+wall time (reading the file and checkCert): 0.685000 s
+CERTIFICATE REJECTED: checkCert 9/5 = false
+exit status 1
+== checkcert 179/100 ../data/certs/cert_c_3653_18_10.txt
+checkcert: T = 179/100, file ../data/certs/cert_c_3653_18_10.txt, 82480950 bytes
+checkCert 179/100 <file> = false
+leaves (letters L in the file): 20620238
+wall time (reading the file and checkCert): 0.658000 s
+CERTIFICATE REJECTED: checkCert 179/100 = false
+exit status 1
+== checkcert 9/5 ../data/controls/cert_tamper.txt
+checkcert: T = 9/5, file ../data/controls/cert_tamper.txt, 82480945 bytes
+checkCert 9/5 <file> = false
+leaves (letters L in the file): 20620237
+wall time (reading the file and checkCert): 18.697000 s
+CERTIFICATE REJECTED: checkCert 9/5 = false
+exit status 1
+== checkcert 9/5 ../data/controls/cert_tampersplit.txt
+checkcert: T = 9/5, file ../data/controls/cert_tampersplit.txt, 82480949 bytes
+checkCert 9/5 <file> = false
+leaves (letters L in the file): 20620238
+wall time (reading the file and checkCert): 0.863000 s
+CERTIFICATE REJECTED: checkCert 9/5 = false
+exit status 1

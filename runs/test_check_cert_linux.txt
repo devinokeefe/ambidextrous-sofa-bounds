@@ -1,0 +1,43 @@
+# bash ../checkers/test_check_cert.sh   (2026-09-29, Linux 6.18.33.2-microsoft-standard-WSL2, Python 3.12.3)
+python: python3 ; arithmetic: fraction
+== 1. one-leaf certificate: Gamma(E0) = 5, checked against T = 5 and T = 353/200
+PASS  exit 0  CERTIFICATE VALID
+PASS  exit 2  LOG REFUSED: /tmp/tmp.JC2QTnHq0Q/one.log was written for a different run (certificate, spec, threshold, checker or task layout differ). Use a new log file.
+PASS  exit 1  CERTIFICATE INVALID
+== 2. certificate for T = 2 (c_3653_20), split into many tasks
+PASS  exit 0  CERTIFICATE VALID
+   35227 task records
+PASS  exit 0  CERTIFICATE VALID
+== 3. tampered logs are refused
+PASS  exit 2  LOG REFUSED: record '0 22399/11200 0 492 True e9647f7fedf46cbb' does not match task 0
+PASS  exit 2  LOG REFUSED: record '0 22399/11200 0 491 True 0000000000000000' does not match task 0
+PASS  exit 2  LOG REFUSED: duplicate task index in '0 22399/11200 0 491 True e9647f7fedf46cbb'
+PASS  exit 2  LOG REFUSED: /tmp/tmp.JC2QTnHq0Q/c20.log was written for a different run (certificate, spec, threshold, checker or task layout differ). Use a new log file.
+== 4. same certificate against T = 19/10: rejected, also when reusing the T = 2 log
+PASS  exit 1  CERTIFICATE INVALID
+PASS  exit 2  LOG REFUSED: /tmp/tmp.JC2QTnHq0Q/c20.log was written for a different run (certificate, spec, threshold, checker or task layout differ). Use a new log file.
+== 5. truncated certificate
+PASS  exit 1  CERTIFICATE INVALID (structure: certificate truncated)
+== 6. malformed input: usage errors and unusable logs exit with 2, a malformed certificate with 1
+PASS  exit 2  LOG REFUSED: malformed record 'x 22399/11200 0 491 True e9647f7fedf46cbb'
+PASS  exit 2  LOG REFUSED: malformed record '0 22399/11200 0 many True e9647f7fedf46cbb'
+PASS  exit 2  LOG REFUSED: malformed record '0 1/0 0 491 True e9647f7fedf46cbb'
+PASS  exit 2  LOG REFUSED: malformed record '0 22399/11200 -1 491 True e9647f7fedf46cbb'
+PASS  exit 2  usage error: NPROC must be a positive integer, got 'four'
+PASS  exit 2  usage error: NPROC must be a positive integer, got '0'
+PASS  exit 2  usage error: MAXLEAVES must be a positive integer, got '0'
+PASS  exit 2  usage error: cannot read spec /tmp/tmp.JC2QTnHq0Q/no_such_spec.json ([Errno 2] No such file or directory: '/tmp/tmp.JC2QTnHq0Q/no_such_spec.json')
+PASS  exit 2  usage error: cannot read spec /tmp/tmp.JC2QTnHq0Q/nocert.json (certificate file /tmp/tmp.JC2QTnHq0Q/no_such_cert.txt not found)
+PASS  exit 2  usage error: cannot read spec /tmp/tmp.JC2QTnHq0Q/badT.json (Invalid literal for Fraction: 'abc')
+PASS  exit 1  CERTIFICATE INVALID (malformed certificate: a character other than L, a digit or white space)
+== 7. certificate tokens outside the grammar; unreadable or unwritable files
+PASS  exit 1  CERTIFICATE INVALID (malformed certificate: 255 is not a valid token)
+PASS  exit 1  CERTIFICATE INVALID (malformed certificate: a split coordinate is not below 8)
+PASS  exit 1  CERTIFICATE INVALID (malformed certificate: a character other than L, a digit or white space)
+PASS  exit 2  LOG REFUSED: cannot read /tmp/tmp.JC2QTnHq0Q/logdir ([Errno 21] Is a directory: '/tmp/tmp.JC2QTnHq0Q/logdir')
+PASS  exit 2  LOG REFUSED: cannot read /tmp/tmp.JC2QTnHq0Q/badutf.log ('ascii' codec can't decode byte 0xff in position 0: ordinal not in range(128))
+PASS  exit 2  usage error: cannot create log /tmp/tmp.JC2QTnHq0Q/no_such_dir/x.log ([Errno 2] No such file or directory: '/tmp/tmp.JC2QTnHq0Q/no_such_dir/x.log')
+PASS  exit 2  usage error: cannot read certificate /tmp/tmp.JC2QTnHq0Q/noread.txt ([Errno 13] Permission denied: '/tmp/tmp.JC2QTnHq0Q/noread.txt')
+== 8. a write failure during the run (file-size limit of 1 KiB): no verdict, exit 2
+PASS  exit 2  LOG ERROR: cannot write to /tmp/tmp.JC2QTnHq0Q/wf.log ([Errno 27] File too large); no verdict. The log may end with an incomplete record: resume with it only if its last line is complete, otherwise use a new log.
+failures: 0

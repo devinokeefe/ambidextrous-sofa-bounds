@@ -1,0 +1,33 @@
+# CHECK_ARITH=flint python ../checkers/check_cert.py specs/c_3653_18_10.json 16 ../runs/python_9_5.log   (2026-09-28, from data/)
+spec specs/c_3653_18_10.json arith flint.fmpq leaves 20620238 tasks 57992 already done 0 T 9/5 1.8 parse 30.1s
+progress: 2000/57992 tasks, 953s
+progress: 4000/57992 tasks, 960s
+progress: 6000/57992 tasks, 962s
+progress: 8000/57992 tasks, 964s
+progress: 10000/57992 tasks, 964s
+progress: 12000/57992 tasks, 965s
+progress: 14000/57992 tasks, 965s
+progress: 16000/57992 tasks, 966s
+progress: 18000/57992 tasks, 966s
+progress: 20000/57992 tasks, 966s
+progress: 22000/57992 tasks, 966s
+progress: 24000/57992 tasks, 967s
+progress: 26000/57992 tasks, 967s
+progress: 28000/57992 tasks, 967s
+progress: 30000/57992 tasks, 967s
+progress: 32000/57992 tasks, 968s
+progress: 34000/57992 tasks, 968s
+progress: 36000/57992 tasks, 968s
+progress: 38000/57992 tasks, 968s
+progress: 40000/57992 tasks, 969s
+progress: 42000/57992 tasks, 969s
+progress: 44000/57992 tasks, 969s
+progress: 46000/57992 tasks, 969s
+progress: 48000/57992 tasks, 970s
+progress: 50000/57992 tasks, 970s
+progress: 52000/57992 tasks, 970s
+progress: 54000/57992 tasks, 970s
+progress: 56000/57992 tasks, 971s
+leaves 20620238 of 20620238 ; worst leaf lambda* = 1.800000000 (exact 9/5) ; leaves exceeding T: 0 ; structure ok: True ; time 970.9s
+CERTIFICATE VALID
+exit status 0

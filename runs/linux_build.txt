@@ -1,0 +1,52 @@
+# 2026-09-29, Linux 6.18.33.2-microsoft-standard-WSL2, gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0, Python 3.12.3
+# no output after a gcc command means no warnings
+== gcc -std=c11 -O2 -Wall -Wextra -Wshadow -Wpedantic -fopenmp -I ../checkers/portable ../checkers/cchk.c -o cchk
+== gcc -std=c11 -O2 -Wall -Wextra -Wshadow -Wpedantic -Wno-unknown-pragmas -I ../checkers/portable -I ../checkers/portable/noomp ../checkers/cchk.c -o cchk1
+== ./cchk specs/c_3653_18_10.json 4 18
+spec specs/c_3653_18_10.json: 4 hallways, W=5/1 (min W_a=60/12 = 5.000000), T=9/5 = 1.800000000
+  hallway 0: h=5  h*f = 0 + 4 x + 3 y ;  h*g = 0 + -3 x + 4 y
+  hallway 1: h=5  h*f = 0 + 3 x + 4 y ;  h*g = 0 + -4 x + 3 y
+  hallway 2: h=5  h*f = 3 + 4 x + -3 y ;  h*g = 4 + -3 x + -4 y
+  hallway 3: h=5  h*f = 4 + 3 x + -4 y ;  h*g = 3 + -4 x + -3 y
+cert certs/cert_c_3653_18_10.txt: 41240475 tokens (0.9s)
+structure: complete binary tree, 41240475 tokens, 20620238 leaves, max depth 62, max per-coordinate depth 8
+scale: Dk=8 M=256 L=4200 (12 directions)
+tasks: 5108 (cut depth 18), setup 1.2s
+leaves checked 20620238 (tokens say 20620238) ; worst certified leaf value 1.8000000000 ; leaves exceeding T: 0 ; leaves needing components: 171264 ; wall 56.6s cpu 101.5s
+CERTIFICATE VALID
+exit status 0
+== ./cchk controls/lowT.json 4 18
+spec controls/lowT.json: 4 hallways, W=5/1 (min W_a=60/12 = 5.000000), T=179/100 = 1.790000000
+  hallway 0: h=5  h*f = 0 + 4 x + 3 y ;  h*g = 0 + -3 x + 4 y
+  hallway 1: h=5  h*f = 0 + 3 x + 4 y ;  h*g = 0 + -4 x + 3 y
+  hallway 2: h=5  h*f = 3 + 4 x + -3 y ;  h*g = 4 + -3 x + -4 y
+  hallway 3: h=5  h*f = 4 + 3 x + -4 y ;  h*g = 3 + -4 x + -3 y
+cert certs/cert_c_3653_18_10.txt: 41240475 tokens (0.8s)
+structure: complete binary tree, 41240475 tokens, 20620238 leaves, max depth 62, max per-coordinate depth 8
+scale: Dk=8 M=256 L=4200 (12 directions)
+tasks: 5108 (cut depth 18), setup 1.2s
+leaves checked 20620238 (tokens say 20620238) ; worst certified leaf value 1.7999998837 ; leaves exceeding T: 12352698 ; leaves needing components: 12632382 ; wall 41.0s cpu 88.5s
+first failing leaf at token 65, value 1.7983389137 > T
+CERTIFICATE INVALID
+exit status 1
+== ./cchk1 specs/c_3653_18_10.json 1 18
+spec specs/c_3653_18_10.json: 4 hallways, W=5/1 (min W_a=60/12 = 5.000000), T=9/5 = 1.800000000
+  hallway 0: h=5  h*f = 0 + 4 x + 3 y ;  h*g = 0 + -3 x + 4 y
+  hallway 1: h=5  h*f = 0 + 3 x + 4 y ;  h*g = 0 + -4 x + 3 y
+  hallway 2: h=5  h*f = 3 + 4 x + -3 y ;  h*g = 4 + -3 x + -4 y
+  hallway 3: h=5  h*f = 4 + 3 x + -4 y ;  h*g = 3 + -4 x + -3 y
+cert certs/cert_c_3653_18_10.txt: 41240475 tokens (0.4s)
+structure: complete binary tree, 41240475 tokens, 20620238 leaves, max depth 62, max per-coordinate depth 8
+scale: Dk=8 M=256 L=4200 (12 directions)
+tasks: 5108 (cut depth 18), setup 0.7s
+leaves checked 20620238 (tokens say 20620238) ; worst certified leaf value 1.8000000000 ; leaves exceeding T: 0 ; leaves needing components: 171264 ; wall 42.3s cpu 42.1s
+CERTIFICATE VALID
+exit status 0
+== gcc -std=c11 -O2 -Wall -Wextra -Wshadow -Wpedantic -fopenmp csearch.c -o csearch -lm
+== gcc -std=c11 -O2 -Wall -Wextra -Wshadow -Wpedantic -Wno-unknown-pragmas -I ../checkers/portable/noomp csearch.c -o csearch1 -lm
+== OMP_NUM_THREADS=4 python3 ../search/run_search.py 3/5,4/5 3/5,4/5 2/1 c_3653_20
+R(36.87,53.13 ; 36.87,53.13) W=5.0000 T=2/1 certificate written: 426441 nodes, 213221 leaves, largest leaf value 1.999996280, 0.4 s, 4 threads, 4096 subtrees 
+   sha256 d0ab1a1a6e8140a9a18eefefcf4f37eaefb42c4b6d4599a671ee0028b06e15a3 ; same as the certificate in data/certs: yes
+== OMP_NUM_THREADS=4 python3 ../search/run_search.py 3/5,4/5 3/5,4/5 18/10 c_3653_18_10
+R(36.87,53.13 ; 36.87,53.13) W=5.0000 T=18/10 certificate written: 41240475 nodes, 20620238 leaves, largest leaf value 1.799999884, 40.1 s, 4 threads, 4096 subtrees 
+   sha256 4ebef3a705bc8f4d42b31ad46964cf1027a05621e0b2a150957bbaa832112ea3 ; same as the certificate in data/certs: yes

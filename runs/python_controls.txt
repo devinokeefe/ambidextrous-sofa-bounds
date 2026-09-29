@@ -1,0 +1,19 @@
+# CHECK_ARITH=flint python ../checkers/check_cert.py controls/NAME.json 16 LOG   (2026-09-29, from data/)
+== CHECK_ARITH=flint python ../checkers/check_cert.py controls/trunc.json 16 LOG
+CERTIFICATE INVALID (structure: certificate truncated)
+exit status 1
+== CHECK_ARITH=flint python ../checkers/check_cert.py controls/lowT.json 16 LOG
+spec controls/lowT.json arith flint.fmpq leaves 20620238 tasks 57992 already done 0 T 179/100 1.79 parse 23.3s
+leaves 20620238 of 20620238 ; worst leaf lambda* = 1.799999884 (exact 15482879/8601600) ; leaves exceeding T: 12352698 ; structure ok: True ; time 3044.8s
+CERTIFICATE INVALID
+exit status 1
+== CHECK_ARITH=flint python ../checkers/check_cert.py controls/tamper.json 16 LOG
+spec controls/tamper.json arith flint.fmpq leaves 20620237 tasks 57992 already done 0 T 9/5 1.8 parse 22.5s
+leaves 20620237 of 20620237 ; worst leaf lambda* = 1.808873698 (exact 277843/153600) ; leaves exceeding T: 1 ; structure ok: True ; time 997.6s
+CERTIFICATE INVALID
+exit status 1
+== CHECK_ARITH=flint python ../checkers/check_cert.py controls/tampersplit.json 16 LOG
+spec controls/tampersplit.json arith flint.fmpq leaves 20620238 tasks 57992 already done 0 T 9/5 1.8 parse 27.4s
+leaves 20620238 of 20620238 ; worst leaf lambda* = 4.106666667 (exact 308/75) ; leaves exceeding T: 14361 ; structure ok: True ; time 314.1s
+CERTIFICATE INVALID
+exit status 1

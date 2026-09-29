@@ -1,0 +1,121 @@
+\documentclass[11pt]{amsart}
+
+\usepackage[letterpaper,margin=1.15in]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{alltt}
+\usepackage{needspace}
+\usepackage{xcolor}
+\usepackage[colorlinks=true,linkcolor={blue!50!black},citecolor={blue!50!black},urlcolor={blue!50!black}]{hyperref}
+\usepackage[capitalize,nameinlink]{cleveref}
+\raggedbottom
+\makeatletter
+% With \raggedbottom every page has zero badness, so any negative penalty attracts the page break.
+% The default \@secpenalty (-300) and the \penalty-100 inside \needspace both end pages early;
+% this \needspace breaks only when less than #1 remains on the page.
+\@secpenalty=0
+\renewcommand{\needspace}[1]{\par\begingroup\setlength{\dimen@}{#1}%
+  \dimen@ii\pagegoal \advance\dimen@ii-\pagetotal
+  \ifdim\dimen@>\dimen@ii \ifdim\dimen@ii>\z@\vfil\fi\penalty-\@M\fi\endgroup}
+\makeatother
+\renewcommand{\topfraction}{0.85}
+\renewcommand{\bottomfraction}{0.6}
+\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}
+
+% ------------------------------------------------------------------ theorem environments
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{rem}[thm]{Remark}
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+\crefname{thm}{Theorem}{Theorems}
+\crefname{prop}{Proposition}{Propositions}
+\crefname{lem}{Lemma}{Lemmas}
+\crefname{cor}{Corollary}{Corollaries}
+\crefname{defn}{Definition}{Definitions}
+\crefname{rem}{Remark}{Remarks}
+
+% ------------------------------------------------------------------ notation
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Lh}{L_{\mathrm{horiz}}}
+\newcommand{\Lv}{L_{\mathrm{vert}}}
+\newcommand{\lamstar}{\lambda^{*}}
+\newcommand{\muA}{\mu_{\mathrm{A}}}
+\newcommand{\muZ}{\mu_{\mathrm{Z}}}
+\newcommand{\muR}{\mu_{\mathrm{R}}}
+\newcommand{\bu}{\mathbf{u}}
+\newcommand{\bv}{\mathbf{v}}
+\newcommand{\bw}{\mathbf{w}}
+\newcommand{\Lo}{\mathit{Lo}}
+\newcommand{\Up}{\mathit{Up}}
+\newcommand{\Tmain}{\tfrac{353}{200}}
+\newcommand{\dg}{^{\circ}}
+\newcommand{\pos}[1]{(#1)_{+}}
+\DeclareMathOperator{\diam}{diam}
+
+% abstract set as in the article class: centred bold heading above an indented block
+\makeatletter
+\renewenvironment{abstract}{%
+  \global\setbox\abstractbox=\vtop \bgroup
+    \normalfont\Small
+    \list{}{\labelwidth\z@ \leftmargin3pc \rightmargin\leftmargin
+      \listparindent\normalparindent \itemindent\z@ \parsep\z@ \@plus\p@
+      \let\fullwidthdisplay\relax}%
+    \item\relax{\centering\bfseries\abstractname\par}\vskip0.5\baselineskip
+    \ignorespaces
+}{%
+  \endlist\egroup
+  \ifx\@setabstract\relax \@setabstracta \fi
+}
+\makeatother
+
+\begin{document}
+
+\title[The ambidextrous moving sofa problem]{Upper bounds for the\\ ambidextrous moving sofa problem}
+
+\author{Devin O'Keefe}
+\address{Independent Researcher}
+\email{okeefede@tcd.ie}
+
+\subjclass[2020]{Primary 49Q10; Secondary 52A10, 68V05, 68V20}
+\keywords{moving sofa problem, ambidextrous sofa, computer-assisted proof, branch and bound, exact arithmetic, formal verification, Lean}
+
+\begin{abstract}
+The ambidextrous moving sofa problem asks for the largest area of a connected planar shape that can be moved around a right-angled corner in a hallway of unit width, both to the left and to the right, from the same starting position. The largest known such shape, found numerically by Gibbs and derived exactly by Romik, has area $1.64495521\ldots$. We prove with computer assistance that every ambidextrous sofa has area at most $353/200=1.765$, and give a computer-free proof of the bound $2\sqrt{2}-1=1.8284\ldots$. Both proofs control the orientation of the sofa by a variant of an argument of Gerver, as modified by Baek, that does not assume monotone rotation. The proofs are formalised in Lean, apart from the run of the verified checker on the certificate.
+\end{abstract}
+
+\maketitle
+
+\input{sec1_intro}
+\input{sec2_definitions}
+\input{sec3_relaxations}
+\input{sec4_reduction}
+\input{sec5_method}
+\input{sec6_computation}
+\input{sec7_lean}
+\input{sec8_remarks}
+
+\appendix
+\input{appA_onehalf}
+\input{appB_definitions}
+
+\section*{Use of AI tools}
+\input{ai_tools}
+
+\bibliographystyle{amsplain}
+{\interlinepenalty=10000 % keep each reference on one page
+\bibliography{references}}
+
+\end{document}

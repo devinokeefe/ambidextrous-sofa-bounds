@@ -1,0 +1,24 @@
+\section{The formal definitions}\label{app:data}
+
+The formal statements of \cref{sec:leanstatements} rest on the definitions in \texttt{SofaBounds/Defs.lean}. The three below correspond to \cref{def:sofa}; like the hallways they use, they are copied from Formal Conjectures \cite{formalconjectures,fc_pr6424} and are shown without comments. Here \texttt{horizontalHallway}, \texttt{verticalHallway} and \texttt{hallway} are the sets $\Lh$, $\Lv$ and $L_0$ of \cref{sec:definitions}, $\mathbb{R}^2$ stands for \texttt{EuclideanSpace \(\mathbb{R}\) (Fin 2)}, \texttt{E(2)} is the group of isometries of $\R^2$ with its usual topology, \texttt{I} is the interval $[0,1]$, \texttt{m t \textquotesingle\textquotesingle{} s} is the image of \texttt{s} under \texttt{m t}, \texttt{midline} is the line $y=\frac12$, and \texttt{volume} is Lebesgue measure. The definitions for the Z-shaped corridor, which are ours, have the same form, with $Z_D$ in place of $L_0$.
+\begin{alltt}\footnotesize
+structure IsMovingSofa (s : Set \(\mathbb{R}\sp{2}\)) (m : I \(\to\) E(2)) : Prop where
+  isConnected : IsConnected s
+  isClosed : IsClosed s
+  continuous : Continuous m
+  zero : m 0 = .refl \(\mathbb{R}\) \(\mathbb{R}\sp{2}\)
+  initial : s \(\subseteq\) horizontalHallway
+  subset_hallway : \(\forall\) t, m t \textquotesingle\textquotesingle{} s \(\subseteq\) hallway
+  final : m 1 \textquotesingle\textquotesingle{} s \(\subseteq\) verticalHallway
+\end{alltt}
+\needspace{5\baselineskip}
+\begin{alltt}\footnotesize
+def IsAmbidextrousSofa (s : Set \(\mathbb{R}\sp{2}\)) : Prop :=
+  (\(\exists\) m, IsMovingSofa s m) \(\wedge\)
+    (\(\exists\) m, IsMovingSofa (EuclideanGeometry.reflection midline \textquotesingle\textquotesingle{} s) m)
+\end{alltt}
+\needspace{4\baselineskip}
+\begin{alltt}\footnotesize
+def ambidextrousSofaConstant : \(\mathbb{R}{\ge}0\infty\) :=
+  \(\bigsqcup\) (s : Set \(\mathbb{R}\sp{2}\)) (_ : IsAmbidextrousSofa s), volume s
+\end{alltt}

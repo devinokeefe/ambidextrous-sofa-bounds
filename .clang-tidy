@@ -1,0 +1,25 @@
+# Checks for the C files, run from this folder:
+#   clang-tidy checkers/cchk.c search/csearch.c -- -fopenmp -I checkers/portable -I checkers/portable/noomp
+# Left out: advice to use the optional Annex K functions (fprintf_s, memcpy_s, ...); reports about
+# signed char tokens, which are small integers and not characters; integer widening in index arithmetic;
+# fscanf number conversion (the return values are checked, and the input files are written by
+# run_search.py); the bounded recursion over hallways in cchk.c; and style checks.
+Checks: >
+  -*,
+  bugprone-*,
+  cert-*,
+  clang-analyzer-*,
+  misc-*,
+  performance-*,
+  portability-*,
+  readability-misleading-indentation,
+  -bugprone-easily-swappable-parameters,
+  -bugprone-implicit-widening-of-multiplication-result,
+  -bugprone-signed-char-misuse,
+  -bugprone-unchecked-string-to-number-conversion,
+  -cert-err33-c,
+  -cert-err34-c,
+  -cert-str34-c,
+  -clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling,
+  -misc-include-cleaner,
+  -misc-no-recursion

@@ -1,0 +1,81 @@
+\section{Definitions}\label{sec:definitions}
+
+\subsection{Notation}
+
+We work in the plane $\R^2$ with coordinates $(x,y)$. Angles are measured in degrees, counterclockwise, and $R_\theta$ denotes rotation about the origin by $\theta$. A \emph{rigid motion} is a map of the form $z\mapsto R_\theta z+\mathbf{x}$ with $\theta\in\R$ and $\mathbf{x}\in\R^2$. We write $\lambda$ for area (Lebesgue measure) and, following \cite{kallusromik2018}, $\lamstar(X)$ for the supremum of the areas of the connected components of a closed set $X\subset\R^2$, with $\lamstar(\emptyset)=0$; the components are closed, so their areas are defined. If $X\subset Y$ are closed then $\lamstar(X)\le\lamstar(Y)$, because every connected component of $X$ lies in a component of $Y$. For a real number $r$ we write $\pos{r}=\max(r,0)$.
+
+The hallways are built from the horizontal and vertical strips
+\[
+H=\R\times[0,1], \qquad V=[0,1]\times\R .
+\]
+As in \cite{kallusromik2018,romik2018}, let
+\[
+\Lh=(-\infty,1]\times[0,1], \qquad \Lv=[0,1]\times(-\infty,1], \qquad L_0=\Lh\cup\Lv .
+\]
+The set $L_0$ is a hallway of unit width that comes in from the left and turns right, downward, at the unit square $[0,1]^2$. Let
+\[
+\rho(x,y)=(x,\,1-y)
+\]
+be the reflection in the midline $y=\tfrac12$ of $H$. It maps $\Lh$ to itself, and $\rho(L_0)=\Lh\cup\big([0,1]\times[0,\infty)\big)$ is the hallway that comes in from the left and turns left, upward (\cref{fig:problem}(a)).
+
+\subsection{Sofas and motions}
+
+\begin{defn}\label{def:sofa}
+\leavevmode
+\begin{enumerate}[label=(\alph*)]
+\item A \emph{sofa} is a nonempty, closed, connected subset of $\R^2$.
+\item A \emph{motion} is a pair of continuous functions $\theta\colon[0,1]\to\R$ and $\mathbf{x}\colon[0,1]\to\R^2$ with $\theta(0)=0$ and $\mathbf{x}(0)=0$. For a set $S$ we write $S_t=R_{\theta(t)}S+\mathbf{x}(t)$ for its position at time $t$, and call $\theta(t)$ its \emph{orientation}.
+\item A sofa $S$ \emph{turns right} if $S\subset\Lh$ and there is a motion such that $S_t\subset L_0$ for all $t\in[0,1]$ and $S_1\subset\Lv$. It \emph{turns left} if $S\subset\Lh$ and there is a motion such that $S_t\subset\rho(L_0)$ for all $t$ and $S_1\subset\rho(\Lv)$.
+\item A sofa is \emph{ambidextrous} if it turns right and turns left. The two motions may differ, but both start from the same position $S\subset\Lh$.
+\item The \emph{ambidextrous sofa constant} is $\muA=\sup\{\lambda(S): S \text{ is an ambidextrous sofa}\}$.
+\end{enumerate}
+\end{defn}
+
+\begin{rem}\label{rem:definitions}
+\leavevmode
+\begin{enumerate}[label=(\arabic*),leftmargin=*]
+\item Recording the orientation $\theta(t)$ as a real number, rather than as an angle modulo $360\dg$, loses no generality: every continuous path of rigid motions that starts at the identity lifts uniquely to a motion in our sense. The real-valued orientation lets us distinguish, for instance, a sofa that has turned by $-90\dg$ from one that has turned by $270\dg$.
+
+\item Conjugating a motion by $\rho$ gives a motion whose orientation is $-\theta(t)$. Hence a sofa $S$ turns left if and only if its mirror image $\rho(S)$ turns right, and $S$ is ambidextrous if and only if both $S$ and $\rho(S)$ turn right. This is the notion used in a proposed formalisation in Lean \cite{fc_pr6424}.
+
+\item If the two turns were allowed to start from different positions, the ambidextrous problem would coincide with the ordinary one, because every sofa that turns right also turns left \emph{from some starting position}.
+
+To see this, suppose that a sofa $S$ turns right with the motion $t\mapsto S_t$, and let $\chi(x,y)=(y,x)$ be the reflection that swaps $\Lh$ and $\Lv$ and maps $L_0$ to itself. Running the motion backwards and reflecting it gives the positions $t\mapsto\chi(S_{1-t})$. They form a motion of the mirror image $\chi(S_1)$ of $S$, with orientation $\theta(1)-\theta(1-t)$, which starts in $\Lh$, stays in $L_0$ and ends in $\Lv$. So $\chi(S_1)$ turns right, and by~(2) the set $\rho\chi(S_1)$ turns left. As $\rho\chi$ is a rotation followed by a translation, so is the map that takes $S$ to $\rho\chi(S_1)$.
+
+The documentation of \cite{fc_pr6424} makes the same point. The statement of Problem~6.63 in \cite{georgiev2025alphaevolve} leaves the requirement of a common starting position implicit.
+
+\item Romik's shape $\Sigma$ is ambidextrous \cite[Theorem~5]{romik2018}. Hence $\muA\ge\muR=1.64495521\ldots$.
+\end{enumerate}
+\end{rem}
+
+\subsection{The Z-shaped corridor}\label{sec:zcorridor}
+
+Another formulation \cite{optimisation-constants-repo} asks for the largest sofa that can travel through a corridor with a left turn followed by a right turn, the two turns being far apart. For $D>0$ let
+\[
+A_1=(-\infty,1]\times[0,1],\qquad M=[0,1]\times[0,D+1],\qquad A_2=[0,\infty)\times[D,D+1],
+\]
+and let $Z_D=A_1\cup M\cup A_2$. A sofa travelling to the right in $A_1$ turns left into the vertical section $M$, moves up, and turns right into $A_2$ (\cref{fig:problem}(b)).
+
+\begin{defn}\label{def:z}
+A sofa $S$ \emph{passes through} $Z_D$ if $S\subset A_1$ and there is a motion such that $S_t\subset Z_D$ for all $t\in[0,1]$ and $S_1\subset A_2$. We write $\muZ(D)$ for the supremum of the areas of such sofas.
+\end{defn}
+
+Romik's shape passes through $Z_D$ when $D$ is large enough. It can make the first turn with its left-turning motion, which ends with the shape rotated by exactly $90\dg$ and lying in the vertical arm. The second turn is a right turn seen in a rotated frame. The rigid motion $\Phi(z)=R_{90\dg}z+(1,D)$ maps $L_0$ onto the hallway
+\[
+\Phi(L_0)=\big([0,1]\times(-\infty,D+1]\big)\cup A_2
+\]
+around the upper corner. So the shape can slide up the strip $[0,1]\times\R$ to the position $\Phi(\Sigma)$ and then follow the positions $\Phi(\Sigma_t)$, where $t\mapsto\Sigma_t$ is the right-turning motion of $\Sigma$. Since both motions stay in a bounded region, all positions lie in $Z_D$ once $D$ is large. Hence $\muZ(D)\ge\muR$ for all large $D$.
+
+We do not know whether $\muZ(D)$ and $\muA$ are equal for large $D$. In the Z-shaped corridor the two turns start from different positions, and neither formulation obviously reduces to the other. Our upper bounds hold for both.
+
+\subsection{Boundedness}
+
+\Cref{def:sofa} does not require a sofa to be bounded, but every sofa that can make one of the moves above is.
+
+\begin{lem}\label{lem:bounded}
+Every sofa that turns right, turns left, or passes through $Z_D$ is bounded.
+\end{lem}
+
+\begin{proof}
+Suppose $S$ is unbounded, and consider a motion as in the relevant definition. Since $S\subset\Lh$, we can choose points $p_n\in S$ with $|p_n|\to\infty$, and then $p_n/|p_n|\to(-1,0)$. Fix $t$. The points $q_n=R_{\theta(t)}p_n+\mathbf{x}(t)$ lie in $S_t$ and satisfy $q_n/|p_n|\to R_{\theta(t)}(-1,0)$. On the other hand, the only directions in which $L_0$ is unbounded are $(-1,0)$ and $(0,-1)$: if points $q_n\in L_0$ satisfy $|q_n|\to\infty$, then every limit of $q_n/|q_n|$ is one of these two vectors. For $\rho(L_0)$ the two directions are $(-1,0)$ and $(0,1)$, and for $Z_D$ they are $(-1,0)$ and $(1,0)$. In each case $R_{\theta(t)}(-1,0)$ must be one of two vectors for every $t$. As $\theta$ is continuous and $\theta(0)=0$, this forces $\theta(t)=0$ for all $t$. But the final position $S_1$ lies in $\Lv$, $\rho(\Lv)$ or $A_2$, which are unbounded only in the directions $(0,-1)$, $(0,1)$ and $(1,0)$ respectively, and none of these is $R_0(-1,0)$. This is a contradiction.
+\end{proof}

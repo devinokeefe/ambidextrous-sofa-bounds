@@ -1,0 +1,67 @@
+\section{The computation}\label{sec:computation}
+
+Let $\alpha_1=\arcsin(3/5)\approx36.87\dg$ and $\alpha_2=\arcsin(4/5)\approx53.13\dg$, the two acute angles of the $3$--$4$--$5$ right triangle.
+
+\begin{thm}\label{thm:computation}
+$G(\{\alpha_1,\alpha_2\};\{\alpha_1,\alpha_2\})\le\Tmain$.
+\end{thm}
+
+The proof of \cref{thm:computation} is a certificate in the sense of \cref{def:certificate}, verified by computer; the rest of this section describes it. First we deduce the main theorem.
+
+\begin{proof}[Proof of \cref{thm:main}]
+Let $T=\Tmain$. Then $T>\sqrt2$, since $353^2=124{,}609>80{,}000=2\cdot200^2$. Moreover $\sin\delta_T=1/T=200/353<3/5$, because $1000<1059$. Since $\sin\alpha_1=\cos\alpha_2=3/5$, this gives $\delta_T<\alpha_1<\alpha_2<\gamma_T$. So $A=B=\{\alpha_1,\alpha_2\}$ satisfies the hypotheses of both \cref{thm:reduction2} and \cref{thm:reductionZ}, and together with \cref{thm:computation} they give $\lambda(S)\le\Tmain$ for every ambidextrous sofa $S$ and for every sofa $S$ that passes through $Z_D$ with $D\ge7$.
+\end{proof}
+
+The threshold $\Tmain$ is the smallest we tried for this relaxation; \cref{sec:limits} describes how the cost of the search grows as the threshold decreases. The certificates, the checkers, the search program and the Lean project are available in the repository \url{https://github.com/devinokeefe/ambidextrous-sofa-bounds}.
+
+\subsection{The data}
+
+There are four hallways, $L_{\alpha_1}$, $L_{\alpha_2}$, $\rho L_{\alpha_1}$ and $\rho L_{\alpha_2}$, so the parameter space has dimension $8$. As noted after \cref{lem:width}, $W_{\alpha_1}=W_{\alpha_2}=5$, and we take $W=5$ and $B_W=[0,5]\times[0,1]$. \Cref{tab:data} lists the affine functions $f_j,g_j$ of \eqref{eq:Xj} and the intervals $I_j,J_j$ of \cref{lem:box}. The mirrored hallways have the same intervals as the unmirrored ones, because $\rho$ maps $B_W$ to itself.
+
+\begin{table}[h]
+\centering
+\caption{The four hallways in \cref{thm:computation}, the affine functions of \eqref{eq:Xj}, and the parameter intervals of \cref{lem:box} for $W=5$.}
+\label{tab:data}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Hallway & $f_j(x,y)$ & $g_j(x,y)$ & $I_j$ & $J_j$ \\
+\midrule
+$L_{\alpha_1}$ & $(4x+3y)/5$ & $(-3x+4y)/5$ & $[-1,\,23/5]$ & $[-4,\,4/5]$ \\
+$L_{\alpha_2}$ & $(3x+4y)/5$ & $(-4x+3y)/5$ & $[-1,\,19/5]$ & $[-5,\,3/5]$ \\
+$\rho L_{\alpha_1}$ & $(4x-3y+3)/5$ & $(-3x-4y+4)/5$ & $[-1,\,23/5]$ & $[-4,\,4/5]$ \\
+$\rho L_{\alpha_2}$ & $(3x-4y+4)/5$ & $(-4x-3y+3)/5$ & $[-1,\,19/5]$ & $[-5,\,3/5]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The checkers}
+
+The certificate for \cref{thm:computation} was checked by three programs that share no code: the \emph{Lean checker}, whose correctness is proved in Lean (\cref{sec:lean}), the \emph{C checker} and the \emph{Python checker}. Each checker rebuilds the box $E_0$ from \cref{lem:box}, walks through the certificate, and verifies that $\Gamma(E)\le T$ for every leaf $E$. The C and Python checkers read the four hallways and the threshold from a small text file; in the Lean checker the hallways are fixed in the source code. \Cref{tab:certificates} records the verification runs.
+
+\begin{table}[h]
+\centering
+\caption{The two certificates and their verification. All three checkers accepted both certificates. Times are wall-clock times on a desktop computer with an Intel Core i9-14900K; the number of threads or processes used is given in parentheses.}
+\label{tab:certificates}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+ & $G\le 9/5$ & $G\le\Tmain$ \\
+\midrule
+Leaves & $20{,}620{,}238$ & $436{,}160{,}442$ \\
+Maximal depth of the tree & $62$ & $71$ \\
+File size (uncompressed) & $82$ MB & $1.74$ GB \\
+\midrule
+\multicolumn{3}{@{}l}{\emph{Running times}} \\
+Search (floating point) & $54$ s (4) & $1{,}111$ s (4) \\
+Lean checker (verified) & $32$ s (30) & $776$ s (30) \\
+C checker (exact integers) & $104$ s (4) & $1{,}267$ s (4) \\
+Python checker (exact rationals) & $971$ s (16) & $20{,}207$ s (16) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\emph{The Python checker} computes with exact rational numbers, using the FLINT library \cite{flint} through its Python interface \cite{pythonflint}, or Python's built-in rationals. It forms the polygons $P_i$ by clipping with the half-planes $f_j\le b_j+1$ and $g_j\le d_j+1$ and then splitting each polygon into its parts with $g_j\ge c_j$ and with $g_j\le c_j$, $f_j\ge a_j$. These two parts also make up $\widehat{X}_j$, divided differently from \cref{lem:boxunion}. It decides whether two polygons touch with exact point-in-polygon and segment-intersection tests.
+
+\emph{The C checker} computes with integers only; every arithmetic operation on coordinates and areas is checked for overflow. It rescales the plane by a common denominator so that every vertex of every polygon has integer coordinates, uses the two pieces of \cref{lem:boxunion}, and decides whether two polygons touch by clipping one of them with the half-planes that define the other. It also checks that the tree is complete, that each angle is given by a Pythagorean triple, and that $W\ge\min_aW_a$, as \cref{lem:box} requires.
+
+

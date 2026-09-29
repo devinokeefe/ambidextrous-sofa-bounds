@@ -1,0 +1,5 @@
+# python ../checks/relaxation_values.py   (2026-09-29, from data/)
+(a) Romik's positions: u_1 = (0.1500, 0.3533), u_2 = (0.1529, 0.4173)
+  9 pieces, 1 connected component(s), areas 1.722969320
+(b) local search: u_1 = (0.1260, 0.4425), u_2 = (0.1322, 0.5397)
+  7 pieces, 1 connected component(s), areas 29092957301/16800000000 = 1.731723649

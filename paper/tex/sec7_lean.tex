@@ -1,0 +1,51 @@
+\section{Formal verification}\label{sec:lean}
+
+We formalised both theorems in the Lean~4 proof assistant \cite{lean4}, using the Mathlib library \cite{mathlib2020}. For \cref{thm:hand} the result is a complete formal proof; for \cref{thm:main} it is a formal proof that a Lean function $\mathtt{checkCert}$ certifies the bound whenever it returns \texttt{true}, together with a run of that function, compiled to machine code, on the certificate file. The formalisation has about $5{,}000$ lines, of which about $900$ make up the checker. Formal proofs that include large computations have been given before, most notably for the Kepler conjecture \cite{hales2017flyspeck}; for the ordinary moving sofa problem, Baek's proof has been formalised in Lean \cite{cureton2026movingsofa,cao2026sofaformal}.
+
+\needspace{8\baselineskip}
+\subsection{Definitions and statements}\label{sec:leanstatements}
+
+The formal statements use the definitions of the moving sofa problem in the Formal Conjectures project \cite{formalconjectures} and the definition of ambidextrous sofas proposed in \cite{fc_pr6424}. We copied these definitions without change, so that our statements can be compared with a specification written independently of this paper. The main ones are reproduced in \cref{app:data}.
+
+\needspace{9\baselineskip}
+The main formal results are the following, where \texttt{zSofaConstant D} is $\muZ(D)$:
+\begin{alltt}\small
+theorem ambidextrousSofaConstant_le_two_sqrt_two_sub_one :
+    ambidextrousSofaConstant \(\le\) ENNReal.ofReal (2 * \(\sqrt{2}\) - 1)
+
+theorem zSofaConstant_le_two_sqrt_two_sub_one \{D : \(\mathbb{R}\)\} (hD : 7 \(\le\) D) :
+    zSofaConstant D \(\le\) ENNReal.ofReal (2 * \(\sqrt{2}\) - 1)
+
+theorem ambidextrousSofaConstant_le_of_checkCert \{T : \(\mathbb{Q}\)\} (hT : 5/3 \(\le\) T)
+    \{bytes : ByteArray\} (h : checkCert T bytes = true) :
+    ambidextrousSofaConstant \(\le\) ENNReal.ofReal T
+\end{alltt}
+A fourth theorem, not displayed, is the analogue of the third for \texttt{zSofaConstant D} with $D\ge7$. The hypothesis $T\ge5/3$ gives $\delta_T\le\alpha_1$ and $\alpha_2\le\gamma_T$, as required in \cref{thm:reduction2,thm:reductionZ}. All four theorems depend only on the three standard axioms of Lean: propositional extensionality, choice, and the soundness of quotients.
+
+The formal definitions differ from \cref{def:sofa} in two inessential ways. First, a motion is a continuous path $m\colon[0,1]\to E(2)$ in the group of all isometries of the plane, with $m(0)=\mathrm{id}$, rather than a pair of an orientation and a translation. Such a path consists of rotations followed by translations, because the determinant of the linear part of $m(t)$ is continuous with values in $\{\pm1\}$; this is the first lemma of the formalisation. Second, areas are Lebesgue measures with values in $[0,\infty]$. A set is ambidextrous if both it and its reflection in the line $y=\frac12$ are moving sofas, as in \cref{rem:definitions}(2). Formal Conjectures does not contain the Z-shaped corridor, which we defined in the same style.
+
+\needspace{8\baselineskip}
+\subsection{The verified checker}
+
+The function $\mathtt{checkCert}$ reads the certificate as a byte string, walks through the tree in preorder, recomputes the boxes from $E_0$, and applies the test of \cref{sec:exact} to every leaf. It verifies the same inequality $\Gamma(E)\le T$ as the C checker, but is organised so that its correctness is easy to prove. Unverified code makes choices, such as how to cut a polygon into horizontal slices and how to group the polygons, and verified code checks conditions on these choices that imply the required bound.
+
+The polygons $P_\sigma$, for $\sigma\in\{1,2\}^4$, are the intersections of $B_W$ with one of the two pieces of each $\widehat{X}_j$. Every boundary line other than $y=0$ and $y=1$ has a nonzero coefficient of $x$, so each $P_\sigma$ has the form $\{(x,y):0\le y\le1,\ \ell_i(y)\le x\le r_k(y)\text{ for all }i,k\}$ with affine functions $\ell_i$ and $r_k$. Suppose that $[0,1]$ is divided into intervals $[y_0,y_1]$, and that for each interval one lower bound $\ell$ and one upper bound $r$ are chosen. On such an interval the width of $P_\sigma$ at height $y$ is at most $\pos{r(y)-\ell(y)}$, a convex function of $y$, so
+\[
+\lambda(P_\sigma)\le\sum\frac{y_1-y_0}{2}\Big(\pos{r(y_0)-\ell(y_0)}+\pos{r(y_1)-\ell(y_1)}\Big).
+\]
+This holds for every subdivision and every choice of $\ell$ and $r$, so the code that makes these choices needs no proof. It takes the upper envelope of the $\ell_i$ and the lower envelope of the $r_k$, and splits $[0,1]$ at the breakpoints of these envelopes and at the zeros of the width; with these choices the bound equals $\lambda(P_\sigma)$.
+
+Contact between polygons is handled in the same way. If $r(y_0)<\ell(y_0)$ and $r(y_1)<\ell(y_1)$ on every interval, then $P_\sigma$ is empty, and applying this to $P_\sigma\cap P_\tau$ proves that two polygons are disjoint. For the component test, unverified code sorts the polygons into groups. The checker then verifies that polygons in different groups are disjoint and that each group has total area at most $T$. This suffices, because a connected set contained in a finite union of pairwise disjoint closed sets lies in one of them.
+
+The checker carries out these tests in integer arithmetic, with heights scaled so that all crossings of boundary lines lie at integer heights. If a range check needed for this encoding fails, the leaf is checked in rational arithmetic instead. Both versions are proved to agree with a common specification.
+
+The remaining ingredients are \cref{lem:box}, the inclusion in \cref{lem:boxunion}, and the fact that the leaves of a tree obtained by repeated bisection cover its root. The subtrees are checked in parallel, which does not affect the proof, since in Lean's logic a parallel task has the same value as the corresponding sequential computation. The runs of the compiled checker are reported in \cref{tab:certificates}.
+
+\subsection{What the proof relies on}\label{sec:trust}
+
+The proof of \cref{thm:main} consists of the arguments of \cref{sec:definitions,sec:relaxations,sec:reduction,sec:method} and the verification of one certificate. It can be verified in two ways, which rely on different things.
+
+\emph{Through the formalisation.} The formal proofs are checked by Lean's kernel, and the value $\mathtt{checkCert}\ T\ \mathit{bytes}=\mathtt{true}$ is obtained by running compiled code. This route relies on the kernel, the Lean compiler and runtime (including the C compiler that Lean uses), the few unverified lines of the program that read the file, parse $T$ and print the result, and the formal definitions in \texttt{SofaBounds/Defs.lean}, which should be compared with \cref{def:sofa,def:z} (the main ones are reproduced in \cref{app:data}). No other code needs to be trusted: the third theorem displayed in \cref{sec:leanstatements} holds for every byte string, so the certificate need not be trusted, and the hallway data are part of the verified program rather than an input.
+
+\needspace{8\baselineskip}
+\emph{By hand and with the C or Python checker.} Here the arguments of \cref{sec:definitions,sec:relaxations,sec:reduction,sec:method} are checked by hand, and the certificate by one of these two programs. This route relies on the program correctly implementing the test of \cref{def:certificate}, on its having been compiled or interpreted and run correctly, and on the four hallway entries that it reads being those of \cref{tab:data}. For the runs of the Python checker reported here, it also relies on FLINT and its Python interface, which did the rational arithmetic.

@@ -1,0 +1,12 @@
+# lake env lean PrintAxioms.lean   (2026-09-29)
+'MovingSofa.ambidextrousSofaConstant_le_two_sqrt_two_sub_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MovingSofa.zSofaConstant_le_two_sqrt_two_sub_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MovingSofa.ambidextrousSofaConstant_le_of_checkCert' depends on axioms: [propext, Classical.choice, Quot.sound]
+'MovingSofa.zSofaConstant_le_of_checkCert' depends on axioms: [propext, Classical.choice, Quot.sound]
+@MovingSofa.ambidextrousSofaConstant_le_of_checkCert : ∀ {T : ℚ},
+  5 / 3 ≤ T →
+    ∀ {bytes : ByteArray}, SofaCert.checkCert T bytes = true → MovingSofa.ambidextrousSofaConstant ≤ ENNReal.ofReal ↑T
+@MovingSofa.zSofaConstant_le_of_checkCert : ∀ {T : ℚ},
+  5 / 3 ≤ T →
+    ∀ {bytes : ByteArray},
+      SofaCert.checkCert T bytes = true → ∀ {D : ℝ}, 7 ≤ D → MovingSofa.zSofaConstant D ≤ ENNReal.ofReal ↑T

@@ -1,0 +1,22 @@
+# python ../search/run_search.py A B T NAME [-c 16], from data/ with OMP_NUM_THREADS=4   (2026-09-28)
+== python ../search/run_search.py 3/5,4/5 3/5,4/5 2/1 c_3653_20
+R(36.87,53.13 ; 36.87,53.13) W=5.0000 T=2/1 certificate written: 426441 nodes, 213221 leaves, largest leaf value 1.999996280, 0.5 s, 4 threads, 4096 subtrees 
+   exit status 0
+== python ../search/run_search.py 3/5,4/5 3/5,4/5 37/20 c_3653_185 -c 16
+R(36.87,53.13 ; 36.87,53.13) W=5.0000 T=37/20 certificate written: 5086197 nodes, 2543099 leaves, largest leaf value 1.849999884, 5.2 s, 4 threads, 4096 subtrees 
+   exit status 0
+== python ../search/run_search.py 3/5,4/5 3/5,4/5 18/10 c_3653_18_10
+R(36.87,53.13 ; 36.87,53.13) W=5.0000 T=18/10 certificate written: 41240475 nodes, 20620238 leaves, largest leaf value 1.799999884, 53.7 s, 4 threads, 4096 subtrees 
+   exit status 0
+== python ../search/run_search.py 3/5,4/5 3/5,4/5 178/100 c_3653_178 -c 16
+R(36.87,53.13 ; 36.87,53.13) W=5.0000 T=178/100 certificate written: 171113303 nodes, 85556652 leaves, largest leaf value 1.779999884, 211.5 s, 4 threads, 4096 subtrees 
+   exit status 0
+== python ../search/run_search.py 3/5,4/5 3/5,4/5 177/100 c_3653_177 -c 16
+R(36.87,53.13 ; 36.87,53.13) W=5.0000 T=177/100 certificate written: 475151777 nodes, 237575889 leaves, largest leaf value 1.769999884, 595.1 s, 4 threads, 4096 subtrees 
+   exit status 0
+== python ../search/run_search.py 3/5,4/5 3/5,4/5 353/200 c_3653_1765 -c 16
+R(36.87,53.13 ; 36.87,53.13) W=5.0000 T=353/200 certificate written: 872320883 nodes, 436160442 leaves, largest leaf value 1.764999898, 1110.8 s, 4 threads, 4096 subtrees 
+   exit status 0
+== python ../search/run_search.py 3/5,119/169,4/5 3/5,119/169,4/5 37/20 c_x3_185 -c 16
+R(36.87,44.76,53.13 ; 36.87,44.76,53.13) W=4.8286 T=37/20 certificate written: 32450673 nodes, 16225337 leaves, largest leaf value 1.849999899, 106.5 s, 4 threads, 4096 subtrees 
+   exit status 0

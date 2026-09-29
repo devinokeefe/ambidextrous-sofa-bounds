@@ -1,0 +1,13 @@
+# ../checkers/cchk.exe specs/c_3653_1765.json 4 20   (2026-09-28, from data/)
+spec specs/c_3653_1765.json: 4 hallways, W=5/1 (min W_a=60/12 = 5.000000), T=353/200 = 1.765000000
+  hallway 0: h=5  h*f = 0 + 4 x + 3 y ;  h*g = 0 + -3 x + 4 y
+  hallway 1: h=5  h*f = 0 + 3 x + 4 y ;  h*g = 0 + -4 x + 3 y
+  hallway 2: h=5  h*f = 3 + 4 x + -3 y ;  h*g = 4 + -3 x + -4 y
+  hallway 3: h=5  h*f = 4 + 3 x + -4 y ;  h*g = 3 + -4 x + -3 y
+cert certs/cert_c_3653_1765.txt: 872320883 tokens (3.5s)
+structure: complete binary tree, 872320883 tokens, 436160442 leaves, max depth 71, max per-coordinate depth 9
+scale: Dk=9 M=512 L=4200 (12 directions)
+tasks: 11515 (cut depth 20), setup 7.1s
+leaves checked 436160442 (tokens say 436160442) ; worst certified leaf value 1.7650000000 ; leaves exceeding T: 0 ; leaves needing components: 1341303 ; wall 1267.2s cpu 1267.2s
+CERTIFICATE VALID
+exit status 0

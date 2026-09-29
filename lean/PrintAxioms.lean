@@ -1,0 +1,7 @@
+import SofaBounds
+#print axioms MovingSofa.ambidextrousSofaConstant_le_two_sqrt_two_sub_one
+#print axioms MovingSofa.zSofaConstant_le_two_sqrt_two_sub_one
+#print axioms MovingSofa.ambidextrousSofaConstant_le_of_checkCert
+#print axioms MovingSofa.zSofaConstant_le_of_checkCert
+#check @MovingSofa.ambidextrousSofaConstant_le_of_checkCert
+#check @MovingSofa.zSofaConstant_le_of_checkCert

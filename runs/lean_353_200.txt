@@ -1,0 +1,7 @@
+# LEAN_NUM_THREADS=30 .lake/build/bin/checkcert 353/200 ../data/certs/cert_c_3653_1765.txt   (2026-09-28, from lean/)
+checkcert: T = 353/200, file ../data/certs/cert_c_3653_1765.txt, 1744641766 bytes
+checkCert 353/200 <file> = true
+leaves (letters L in the file): 436160442
+wall time (reading the file and checkCert): 775.741000 s
+CERTIFICATE ACCEPTED: checkCert 353/200 = true
+exit status 0

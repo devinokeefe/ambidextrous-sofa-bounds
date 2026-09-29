@@ -1,0 +1,121 @@
+\section{Proof of \texorpdfstring{Proposition~\ref*{prop:onehalf}}{Proposition 3.7}}\label{app:onehalf}
+
+We integrate the lengths of horizontal slices. After a rotation of coordinates, we cover the intersection of the two hallways by two unit squares and two remaining regions, bound the length of each slice of these four sets, and so reduce \cref{prop:onehalf} to an inequality for a function of one variable (\cref{lem:Z}).
+
+We compute areas in the coordinates
+\[
+p=\frac{x+y}{\sqrt2}, \qquad q=\frac{y-x}{\sqrt2},
+\]
+which are the coordinates $f_{45\dg}$ and $g_{45\dg}$ of \cref{sec:relaxations}. The change of coordinates is a rotation, so it preserves areas. The strip $H$ becomes the diagonal strip $\Delta=\{0\le p+q\le\sqrt2\}$. Throughout, $c=1/\sqrt2$ and $\psi(t)=\pos{1-|t|}$ denotes the tent function.
+
+\subsection*{Slicing}
+For $s\in\R$ consider the line $p+q=s$. For a set $E$ in the $(p,q)$-plane, let $m_E(s)$ be the length of the projection to the $p$-axis of the intersection of $E$ with this line. Since the map $(p,q)\mapsto(p,p+q)$ preserves area,
+\begin{equation}\label{eq:slicing}
+\lambda(E\cap\Delta)=\int_0^{\sqrt2}m_E(s)\,ds .
+\end{equation}
+For a unit square $U=[p',p'+1]\times[q',q'+1]$ one computes $m_U(s)=\psi(s-s_U)$, where $s_U=p'+q'+1$ is the value of $p+q$ at the centre of $U$.
+
+\subsection*{A lemma on intervals}
+\begin{lem}\label{lem:window}
+Let $\phi\ge0$ be a continuous even function that is non-increasing in $|t|$. Among all intervals $I$ of a given length $\ell$, the integral $\int_I\phi$ is largest for $I=[-\ell/2,\ell/2]$.
+\end{lem}
+
+\begin{proof}
+By symmetry we may take $I=[x-\ell/2,\,x+\ell/2]$ with $x\ge0$. The derivative of $\int_I\phi$ with respect to $x$ is $\phi(x+\ell/2)-\phi(x-\ell/2)\le0$, since $|x+\ell/2|\ge|x-\ell/2|$.
+\end{proof}
+
+In particular, a unit square $U$ as above satisfies $\lambda(U\cap\Delta)\le\int_{-c}^{c}\psi=\sqrt2-\frac12$.
+
+\subsection*{The two hallways}
+In the coordinates $(p,q)$, the hallway $L_{45\dg}(\bu)$ is
+\[
+\Lambda=\{p\le P_1,\ q\le Q_1\}\setminus\{p<P_1-1,\ q<Q_1-1\},\qquad P_1=u_1+1,\ Q_1=u_2+1 .
+\]
+A point $(x,y)$ lies in $\rho(L_{45\dg}(\bv))$ if and only if $(x,1-y)$ lies in $L_{45\dg}(\bv)$. Since $f_{45\dg}(x,1-y)=c-q$ and $g_{45\dg}(x,1-y)=c-p$, the mirrored hallway is
+\[
+\Lambda'=\{p\ge P_0,\ q\ge Q_0\}\setminus\{p>P_0+1,\ q>Q_0+1\},\qquad P_0=c-v_2-1,\ Q_0=c-v_1-1 .
+\]
+So both hallways are L-shaped regions with sides parallel to the axes, and their corners point in opposite directions.
+
+\subsection*{A decomposition}
+Let $R=[P_0,P_1]\times[Q_0,Q_1]$, and consider the four half-planes
+\[
+\mathrm{Rt}=\{p\ge P_1-1\},\quad \mathrm{Tp}=\{q\ge Q_1-1\},\quad \mathrm{Lf}=\{p\le P_0+1\},\quad \mathrm{Bt}=\{q\le Q_0+1\}.
+\]
+Within $R$ they consist of the points at distance at most $1$ from the right, top, left and bottom side of $R$, respectively. Then $\Lambda=\{p\le P_1,q\le Q_1\}\cap(\mathrm{Rt}\cup\mathrm{Tp})$ and $\Lambda'=\{p\ge P_0,q\ge Q_0\}\cap(\mathrm{Lf}\cup\mathrm{Bt})$, so
+\[
+\Lambda\cap\Lambda'=R\cap(\mathrm{Rt}\cup\mathrm{Tp})\cap(\mathrm{Lf}\cup\mathrm{Bt}).
+\]
+Expanding, $\Lambda\cap\Lambda'$ is the union of $R\cap\mathrm{Rt}\cap\mathrm{Bt}$, $R\cap\mathrm{Tp}\cap\mathrm{Lf}$, $R\cap\mathrm{Rt}\cap\mathrm{Lf}$ and $R\cap\mathrm{Tp}\cap\mathrm{Bt}$. The first two lie in the unit squares
+\[
+U_A=[P_1-1,P_1]\times[Q_0,Q_0+1], \qquad U_B=[P_0,P_0+1]\times[Q_1-1,Q_1].
+\]
+The part of $R\cap\mathrm{Rt}\cap\mathrm{Lf}$ inside $\mathrm{Tp}\cup\mathrm{Bt}$ lies in $U_A\cup U_B$, and likewise for the part of $R\cap\mathrm{Tp}\cap\mathrm{Bt}$ inside $\mathrm{Rt}\cup\mathrm{Lf}$. Hence
+\[
+\Lambda\cap\Lambda'\subset U_A\cup U_B\cup C_1\cup C_2,
+\]
+where $C_1=(R\cap\mathrm{Rt}\cap\mathrm{Lf})\setminus(\mathrm{Tp}\cup\mathrm{Bt})$ and $C_2=(R\cap\mathrm{Tp}\cap\mathrm{Bt})\setminus(\mathrm{Rt}\cup\mathrm{Lf})$.
+
+\subsection*{Bounds on the slices}
+Let $s_A=P_1+Q_0$ and $s_B=P_0+Q_1$ be the values of $p+q$ at the centres of $U_A$ and $U_B$, so that $m_{U_A}(s)=\psi(s-s_A)$ and $m_{U_B}(s)=\psi(s-s_B)$.
+
+A point of $C_2$ has $P_0+1<p<P_1-1$ and $Q_1-1\le q\le Q_0+1$, with $q$ in an interval of length at most $1$. On the line $p+q=s$ the projections to the two axes have the same length. So the slice of $C_2$ has length at most $1$, at most $(s-Q_1+1)-(P_0+1)=s-s_B$, and at most $(P_1-1)-(s-Q_0-1)=s_A-s$. Thus
+\[
+m_{C_2}(s)\le\min\big(1,\ s-s_B,\ s_A-s\big)_+ ,
+\]
+and in the same way $m_{C_1}(s)\le\min(1,\ s-s_A,\ s_B-s)_+$. At most one of these two bounds is positive for any given $s$.
+
+Let $s_0=(s_A+s_B)/2$, $\eta=|s_A-s_B|/2$ and $\xi=s-s_0$. Combining the bounds,
+\begin{equation}\label{eq:mhat}
+m_{\Lambda\cap\Lambda'}(s)\le\widehat m_\eta(\xi):=\psi(\xi-\eta)+\psi(\xi+\eta)+\min(1,\ \eta-|\xi|)_+ .
+\end{equation}
+By \eqref{eq:slicing}, $\lambda(\Lambda\cap\Lambda'\cap\Delta)\le\int_I\widehat m_\eta$, where $I=[-s_0,\sqrt2-s_0]$ is an interval of length $\sqrt2$. \Cref{prop:onehalf} therefore follows from the next lemma.
+
+\begin{lem}\label{lem:Z}
+For every $\eta\ge0$ and every interval $I$ of length $\sqrt2$,
+\[
+\int_I\widehat m_\eta\le2\sqrt2-1 .
+\]
+\end{lem}
+
+\begin{proof}
+The function $\widehat m_\eta$ is even, so it suffices to describe it for $\xi\ge0$. We distinguish three cases.
+
+\emph{Case $\eta\ge1$.} For $0\le \xi\le\eta$ put $r=\eta-\xi\ge0$. Then $\psi(\xi+\eta)=0$ and
+\[
+\widehat m_\eta(\xi)=\pos{1-r}+\min(1,r)=1.
+\]
+For $\xi>\eta$, $\widehat m_\eta(\xi)=\psi(\xi-\eta)\le1$. So $\widehat m_\eta\le1$ and $\int_I\widehat m_\eta\le\sqrt2<2\sqrt2-1$.
+
+\emph{Case $\tfrac12\le\eta\le1$.} For $0\le \xi\le\eta$ we get
+\[
+\widehat m_\eta(\xi)=(1-\eta+\xi)+\pos{1-\eta-\xi}+(\eta-\xi)=1+\pos{1-\eta-\xi}.
+\]
+For $\xi\ge\eta$ we have $\xi+\eta\ge1$, so $\widehat m_\eta(\xi)=\psi(\xi-\eta)\le1$. Hence $\widehat m_\eta(\xi)\le1+\pos{1-\eta-|\xi|}$ for all $\xi$, and
+\[
+\int_I\widehat m_\eta\le\sqrt2+(1-\eta)^2\le\sqrt2+\tfrac14<2\sqrt2-1 .
+\]
+
+\emph{Case $0\le\eta\le\tfrac12$.} Here, for $\xi\ge0$,
+\[
+\widehat m_\eta(\xi)=
+\begin{cases}
+2-\eta-\xi, & 0\le\xi\le\eta,\\
+2-2\xi, & \eta\le\xi\le1-\eta,\\
+1+\eta-\xi, & 1-\eta\le\xi\le1+\eta,\\
+0, & \xi\ge1+\eta.
+\end{cases}
+\]
+This function is continuous and non-increasing in $\xi\ge0$, so by \cref{lem:window}
+\[
+\int_I\widehat m_\eta\le\int_{-c}^{c}\widehat m_\eta .
+\]
+To compute the right-hand side, write $\widehat m_\eta(\xi)=2\psi(\xi)-\kappa(\xi)+\kappa(|\xi|-1)$ with $\kappa(t)=\pos{\eta-|t|}$, which one checks on each of the intervals above. Now $\int_{-c}^{c}2\psi=2\sqrt2-1$ and $\int_{-c}^{c}\kappa=\eta^2$, since $\eta\le\frac12<c$. The function $\kappa(|\xi|-1)$ is supported where $1-\eta\le|\xi|\le1+\eta$, and its integral over $[-c,c]$ is $\pos{\eta-(1-c)}^2$. Therefore
+\[
+\int_{-c}^{c}\widehat m_\eta=2\sqrt2-1-\eta^2+\pos{\eta-(1-c)}^2\le2\sqrt2-1,
+\]
+because $0<1-c$ implies $\pos{\eta-(1-c)}\le\eta$.
+\end{proof}
+
+\subsection*{The equality case}
+Let $\bu=\bv=(0,c)$. Then $P_1=1$, $Q_1=1+c$, $P_0=-1$ and $Q_0=c-1$, so $U_A=[0,1]\times[c-1,c]$ and $U_B=[-1,0]\times[c,c+1]$. These squares share the corner $(p,q)=(0,c)$, which is the point $(x,y)=(-\frac12,\frac12)$. Here $s_A=s_B=c$, so $\eta=0$, and $C_1$ and $C_2$ are empty. The remaining parts $R\cap\mathrm{Rt}\cap\mathrm{Lf}$ and $R\cap\mathrm{Tp}\cap\mathrm{Bt}$ are the segments $\{0\}\times[c-1,c+1]$ and $[-1,1]\times\{c\}$, which lie in $U_A\cup U_B$. So $H\cap L_{45\dg}(\bu)\cap\rho(L_{45\dg}(\bv))$ corresponds to $(U_A\cup U_B)\cap\Delta$. This set is connected, because the two convex sets $U_A\cap\Delta$ and $U_B\cap\Delta$ share the point $(0,c)$. Its area is $2\int_{-c}^{c}\psi=2\sqrt2-1$ (\cref{fig:45}(b)). \qed

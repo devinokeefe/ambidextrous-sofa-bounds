@@ -1,0 +1,10 @@
+# Layout of the C files:  clang-format -i checkers/cchk.c search/csearch.c
+BasedOnStyle: LLVM
+IndentWidth: 4
+ColumnLimit: 110
+AllowShortIfStatementsOnASingleLine: WithoutElse
+AllowShortLoopsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: None
+AllowShortBlocksOnASingleLine: Never
+AlignTrailingComments: true
+SortIncludes: true

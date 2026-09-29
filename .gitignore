@@ -1,0 +1,10 @@
+# build outputs
+*.exe
+*.obj
+__pycache__/
+.ruff_cache/
+lean/.lake/
+# made by checkers/make_controls.py
+data/controls/
+# attached to the GitHub release as cert_c_3653_1765.txt.xz
+data/certs/cert_c_3653_1765.txt
